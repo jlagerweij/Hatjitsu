@@ -12,7 +12,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "24.x"
+    "node": "26.x"
   },
   "dependencies": {
     "body-parser": "2.4.0",
