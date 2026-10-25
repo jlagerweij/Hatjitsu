@@ -1,6 +1,8 @@
 {
   "name": "hatchetapp.net",
   "version": "0.0.1-82",
+  "private": true,
+  "license": "MIT",
   "subdomain": "hat",
   "domains": [
     "hatchetapp.net",
@@ -13,19 +15,14 @@
     "node": "24.x"
   },
   "dependencies": {
-    "body-parser": "2.2.2",
-    "ci": "2.3.0",
-    "compression": "1.8.1",
+    "body-parser": "2.4.0",
+    "compression": "1.8.2",
     "ejs": "3.1.10",
     "errorhandler": "1.5.2",
     "express": "5.2.1",
-    "express-cdn": "0.4.0",
     "method-override": "3.0.0",
-    "morgan": "1.10.1",
+    "morgan": "1.12.1",
     "socket.io": "4.8.3",
     "underscore": "1.13.8"
-  },
-  "devDependencies": {
-    "socket.io-client": "*"
   }
 }

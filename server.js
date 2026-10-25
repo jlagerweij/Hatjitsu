@@ -35,22 +35,8 @@ var statsSocketMessagesReceived = 0;
 
 // Configuration
 
-// Set the CDN options
-var options = {
-    publicDir  : path.join(__dirname, 'app')
-  , viewsDir   : path.join(__dirname, 'app')
-  , domain     : 'dkb4nwmyziz71.cloudfront.net'
-  , bucket     : 'hatchetapp'
-  , key        : 'AKIAIS3XCFXFKWXGKK7Q'
-  , secret     : '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'
-  , hostname   : config.hostname
-  , port       : config.port
-  , ssl        : false
-  , production : config.packAssets
-};
-
-// Initialize the CDN magic
-var CDN = require('express-cdn')(app, options);
+// Asset version used for cache busting in script tags
+var assetVersion = Date.now();
 
 app.set('views', __dirname + '/app');
 app.set('view engine', 'ejs');
@@ -71,11 +57,14 @@ if (env === 'production') {
   // app.use(assetsManagerMiddleware);
   app.use(compression())
   app.use(express.static(__dirname + '/app'));
-  app.use(errorhandler());
 }
 
-// Add the dynamic view helper
-app.locals.CDN = CDN();
+// Add the view helper that renders script tags for local assets
+app.locals.CDN = function(assets) {
+  return [].concat(assets).map(function(asset) {
+    return '<script src="' + asset + '?v=' + assetVersion + '" type="text/javascript"></script>';
+  }).join('\n');
+};
 
 app.get('/', function(req, res) {
   res.render('index.ejs');
