@@ -21,6 +21,14 @@ Installation
 
 [http://localhost:5000](http://localhost:5000)
 
+Testing
+=======
+
+    npm test
+
+Runs unit tests for `lib/` and integration tests that start the server on a random port
+and exercise the HTTP routes and Socket.IO events (create/join room, vote, reveal, reset, ...).
+
 Installation (Docker)
 =====================
 

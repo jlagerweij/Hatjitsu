@@ -43,11 +43,11 @@ app.set('view engine', 'ejs');
 app.set('view options', {
     layout: false
 });
-app.use(morgan('combined'));
+app.use(morgan('combined', { skip: function() { return env === 'test'; } }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 
-if (env === 'development') {
+if (env === 'development' || env === 'test') {
   app.use(express.static(__dirname + '/app'));
   app.use(errorhandler());
 }
@@ -95,10 +95,13 @@ app.get('/:id', function(req, res) {
 });
 
 
-var port = process.env.app_port || 5000; // Use the port that Heroku provides or default to 5000
-server.listen(port, '0.0.0.0', function() {
-  console.log("Express server listening on 0.0.0.0:%d in %s mode", port, app.settings.env);
-});
+// Only start listening when run directly (node server.js), so tests can require this module
+if (require.main === module) {
+  var port = process.env.app_port || 5000; // Use the port that Heroku provides or default to 5000
+  server.listen(port, '0.0.0.0', function() {
+    console.log("Express server listening on 0.0.0.0:%d in %s mode", port, app.settings.env);
+  });
+}
 
 
 
@@ -241,3 +244,5 @@ io.on('connection', function (socket) {
   });
 
 });
+
+module.exports = { app: app, server: server, io: io, lobby: lobby };
