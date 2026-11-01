@@ -28,6 +28,12 @@ Just checkout the repository and run:
 
     docker-compose up -d
 
+Claude sandbox
+==============
+
+Run Claude Code with permissions bypassed in a microsandbox microVM: `just sandbox`. See
+[tools/sandbox/README.md](tools/sandbox/README.md).
+
 TODOs
 =====
 
