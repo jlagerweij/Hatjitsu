@@ -56,7 +56,7 @@ Outside your checkout, the agent acts as you with the credentials the sandbox pa
 
 ## Network
 
-A sandbox only reaches the hosts in `ALLOWED_HOSTS` in `sandbox.sh` (Anthropic, GitHub, the npm registry) on port 443,
+A sandbox only reaches the hosts in `allowed-hosts.txt` (Anthropic, GitHub, the npm registry) on port 443,
 plus `github.com` on port 22; everything else is blocked. SSH has no hostname to inspect, so the sandbox runs with
 `--net-strict=false`: hostname rules are matched on the IPs DNS returns. A host added to the list reaches a sandbox
 when it's recreated.
@@ -72,6 +72,6 @@ with checksums in `template/Dockerfile`; Claude Code installs its latest version
 - **`gh` in the sandbox gets a 401:** check `gh auth status` on the host; the token is read at every start, so restart
   the sandbox (`msb stop <name>`, then `just sandbox`).
 - **git over SSH fails:** check `ssh-add -l` on the host, then `just sandbox` again (it restarts the bridge).
-- **A blocked host:** add it to `ALLOWED_HOSTS` in `sandbox.sh`, then `just sandbox-rm` and `just sandbox`.
+- **A blocked host:** add it to `allowed-hosts.txt`, then `just sandbox-rm` and `just sandbox`.
 - **Startup logs in the sandbox:** `/tmp/hatjitsu-startup.log`, `/tmp/claude-update.log`,
   `/tmp/ssh-agent-bridge.log`.

@@ -11,7 +11,7 @@
 - Never run `git worktree prune` or remove worktrees: the developer's other worktrees aren't mounted, so git calls them
   prunable, and pruning deletes their records on the host.
 - Network access is limited to an allowlist (Anthropic, GitHub, the npm registry); a blocked host means asking the
-  developer to add it to `tools/sandbox/sandbox.sh`.
+  developer to add it to `tools/sandbox/allowed-hosts.txt`.
 - Available: Node.js and npm (version from `.tool-versions`), just, gh, git, jq, rtk. There is no Docker.
 - The app runs with `npm start` on port 5000 inside the sandbox; test it with `curl http://localhost:5000`.
 - Credentials in the environment (`GH_TOKEN`, `CLAUDE_CODE_OAUTH_TOKEN`) are placeholders; the sandbox proxy swaps in
